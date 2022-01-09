@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Projet informatique s4</name>
+    </assembly>
+    <members>
+        <member name="T:TEST_lire_ecrire_image.GenericGF">
+            <summary>
+              <p>This class contains utility methods for performing mathematical operations over
+            the Galois Fields. Operations use a given primitive polynomial in calculations.</p>
+              <p>Throughout this package, elements of the GF are represented as an {@code int}
+            for convenience and speed (but at the cost of memory).
+              </p>
+            </summary>
+            <author>Sean Owen</author>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGF.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create a representation of GF(size) using the given primitive polynomial.
+            </summary>
+            <param name="primitive">irreducible polynomial whose coefficients are represented by
+            *  the bits of an int, where the least-significant bit represents the constant
+            *  coefficient</param>
+            <param name="size">the size of the field</param>
+            <param name="genBase">the factor b in the generator polynomial can be 0- or 1-based
+            *  (g(x) = (x+a^b)(x+a^(b+1))...(x+a^(b+2t-1))).
+            *  In most cases it should be 1, but for QR code it is 0.</param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGF.BuildMonomial(System.Int32,System.Int32)">
+            <summary>
+            Builds the monomial.
+            </summary>
+            <param name="degree">The degree.</param>
+            <param name="coefficient">The coefficient.</param>
+            <returns>the monomial representing coefficient * x^degree</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGF.AddOrSubtract(System.Int32,System.Int32)">
+            <summary>
+            Implements both addition and subtraction -- they are the same in GF(size).
+            </summary>
+            <returns>sum/difference of a and b</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGF.Exp(System.Int32)">
+            <summary>
+            Exps the specified a.
+            </summary>
+            <returns>2 to the power of a in GF(size)</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGF.Log(System.Int32)">
+            <summary>
+            Logs the specified a.
+            </summary>
+            <param name="a">A.</param>
+            <returns>base 2 log of a in GF(size)</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGF.Inverse(System.Int32)">
+            <summary>
+            Inverses the specified a.
+            </summary>
+            <returns>multiplicative inverse of a</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGF.Multiply(System.Int32,System.Int32)">
+            <summary>
+            Multiplies the specified a with b.
+            </summary>
+            <param name="a">A.</param>
+            <param name="b">The b.</param>
+            <returns>product of a and b in GF(size)</returns>
+        </member>
+        <member name="P:TEST_lire_ecrire_image.GenericGF.Size">
+            <summary>
+            Gets the size.
+            </summary>
+        </member>
+        <member name="P:TEST_lire_ecrire_image.GenericGF.GeneratorBase">
+            <summary>
+            Gets the generator base.
+            </summary>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGF.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="T:TEST_lire_ecrire_image.GenericGFPoly">
+            <summary>
+            <p>Represents a polynomial whose coefficients are elements of a GF.
+            Instances of this class are immutable.</p>
+            <p>Much credit is due to William Rucklidge since portions of this code are an indirect
+            port of his C++ Reed-Solomon implementation.</p>
+            </summary>
+            <author>Sean Owen</author>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGFPoly.#ctor(TEST_lire_ecrire_image.GenericGF,System.Int32[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:TEST_lire_ecrire_image.GenericGFPoly"/> class.
+            </summary>
+            <param name="field">the {@link GenericGF} instance representing the field to use
+            to perform computations</param>
+            <param name="coefficients">coefficients as ints representing elements of GF(size), arranged
+            from most significant (highest-power term) coefficient to least significant</param>
+            <exception cref="T:System.ArgumentException">if argument is null or empty,
+            or if leading coefficient is 0 and this is not a
+            constant polynomial (that is, it is not the monomial "0")</exception>
+        </member>
+        <member name="P:TEST_lire_ecrire_image.GenericGFPoly.Degree">
+            <summary>
+            degree of this polynomial
+            </summary>
+        </member>
+        <member name="P:TEST_lire_ecrire_image.GenericGFPoly.IsZero">
+            <summary>
+            Gets a value indicating whether this <see cref="T:TEST_lire_ecrire_image.GenericGFPoly"/> is zero.
+            </summary>
+            <value>true iff this polynomial is the monomial "0"</value>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGFPoly.GetCoefficient(System.Int32)">
+            <summary>
+            coefficient of x^degree term in this polynomial
+            </summary>
+            <param name="degree">The degree.</param>
+            <returns>coefficient of x^degree term in this polynomial</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.GenericGFPoly.EvaluateAt(System.Int32)">
+            <summary>
+            evaluation of this polynomial at a given point
+            </summary>
+            <param name="a">A.</param>
+            <returns>evaluation of this polynomial at a given point</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Header(System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            fonction qui modofie le header d'une image
+            </summary>
+            <param name="hauteurImage"></param>
+            <param name="largeurImage"></param>
+            <param name="unFichier"></param>
+            <param name="taillePadding"></param>
+            <returns>retourne un tableau de byte qui contient le header de l'image</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.From_Image_To_File(System.String)">
+            <summary>
+            fonction qui crée un fichier bmp à partir d'une matrice de pixel
+            </summary>
+            <param name="path">chemin du fichier créé</param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Convertir_Endian_To_Int(System.Byte[])">
+            <summary>
+            fonction qui convertit le format little endian en int
+            </summary>
+            <param name="tab"></param>
+            <returns>retourne l'entier convertit</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Convertir_Int_To_Endian(System.Int32)">
+            <summary>
+            fonction qui convertit le format int en little endian
+            </summary>
+            <param name="valeur"></param>
+            <returns>retourne une tableau de byte représentant le format little endian</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.NoirEtBlanc">
+            <summary>
+            fonction qui transforme une matrice d'image en couleur en matrice d'image en noir et blanc
+            </summary>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Negatif">
+            <summary>
+            fonction qui inverse les couleurs d'une matrice d'image
+            </summary>
+            <returns>retourne la matrice de l'image modifiée</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Filtrage(System.Double[0:,0:])">
+            <summary>
+            fonction qui permet d'appliquer des filtres de convolutions à des images 
+            </summary>
+            <param name="kernel"></param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Redimensionner(System.Char)">
+            <summary>
+            fonction qui permet de doubler ou de diviser par deux les dimensions de l'image 
+            </summary>
+            <param name="choixRedimensionner"></param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Miroir">
+            <summary>
+            fonction qui permet transformer une image selon un axe de symétrie vertical 
+            </summary>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Flip(System.Double)">
+            <summary>
+            fonction qui permet d'effectuer une rotation d'angle quelconque sur une image
+            </summary>
+            <param name="degre"></param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Mandelbrot">
+            <summary>
+            fonction qui permet de créer une fractale (l'ensemble de Mandelbrot)
+            </summary>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.EscapeTimeCouleur(System.Int32)">
+            <summary>
+            fonction qui permet de colorer les fractales 
+            </summary>
+            <param name="n"></param>
+            <returns>retourne un tableau d'entiers qui sera utilisé pour créer un pixel et colorer une fractale</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Julia(System.Double,System.Double)">
+            <summary>
+            fonction qui permet de créer une fractale de julia
+            </summary>
+            <param name="u">partie réelle</param>
+            <param name="n">partie imaginaire</param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.MatHistogrammeCouleurs">
+            <summary>
+            fonction qui crée un histogramme des couleurs présentes dans une image
+            </summary>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Cacher_Une_Image_Dans_Une_Image(TEST_lire_ecrire_image.MonImage)">
+            <summary>
+            fonction qui permet de cacher une image dans une autre image
+            </summary>
+            <param name="uneImage"></param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.MonImage.Retrouver_Images(TEST_lire_ecrire_image.MonImage)">
+            <summary>
+            fonction qui permet de retrouver les deux images à partir d'une image cachée dans une autre
+            </summary>
+            <param name="image2"></param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.QrCode.Generer_QrCode">
+            <summary>
+            Génère un QR Code à partir d'un texte
+            </summary>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.QrCode.Longueur_Texte(System.String)">
+            <summary>
+            conversion de la longueur du texte en binaire pour son placement dans le QrCode
+            </summary>
+            <param name="chaineOctets"></param>
+            <returns>la longueur du texte en binaire</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.QrCode.Placement_Motif_Recherche(System.Int32)">
+            <summary>
+            placement des motifs de recherche (trois carrés dans les coins)
+            </summary>
+            <param name="version"></param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.QrCode.Placement_Pointilles(System.Int32)">
+            <summary>
+            placement des timing patterns (ligne et colonne en pointillé)
+            </summary>
+            <param name="version"></param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.QrCode.Placement_Donnees(System.String)">
+            <summary>
+            placement des données sur le QR Code en repectant l'ordre
+            </summary>
+            <param name="chaineOctets"></param>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.QrCode.Appliquer_Masque">
+            <summary>
+            remplissage des cases prévues pour l'information sur le masque
+            </summary>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.QrCode.LettreValeur(System.Int32)">
+            <summary>
+            fonction qui associe à un nombre un caractère
+            </summary>
+            <param name="charactere"></param>
+            <returns>le caractère associé au nombre</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.QrCode.ValeurLettre(System.Char)">
+            <summary>
+            fonction qui associe un nombre à un caractère
+            </summary>
+            <param name="nombre"></param>
+            <returns>le nombre associé au caractère</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.QrCode.Verification_QrCode">
+            <summary>
+            vérfie que tous les patterns sont bien présents
+            </summary>
+            <param name="version"></param>
+            <returns>vrai si tous les patterns sont présents, non sinon</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.QrCode.Recuperation_Donnees">
+            <summary>
+            récupère les données trouvées dans le QR Code et les transforme en caractères
+            </summary>
+            <returns>la chaine de caractères codée dans le QR Code</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.ReedSolomonAlgorithm.Encode(System.Byte[],System.Int32,TEST_lire_ecrire_image.ErrorCorrectionCodeType)">
+            <summary>
+            Produces error correction codewords for a message using the Reed-Solomon algorithm.
+            </summary>
+            <param name="message">The message to compute the error correction codewords.</param>
+            <param name="eccCount">The number of error correction codewords desired.</param>
+            <param name="eccType">The type of Galois field to use to encode error correction codewords.</param>
+            <returns>Returns the computed error correction codewords.</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.ReedSolomonAlgorithm.Encode(System.Byte[],System.Int32)">
+            <summary>
+            Produces error correction codewords for a message using the Reed-Solomon algorithm.
+            </summary>
+            <param name="message">The message to compute the error correction codewords.</param>
+            <param name="eccCount">The number of error correction codewords desired.</param>
+            <returns>Returns the computed error correction codewords.</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.ReedSolomonAlgorithm.Decode(System.Byte[],System.Byte[],TEST_lire_ecrire_image.ErrorCorrectionCodeType)">
+            <summary>
+            Repairs a possibly broken message using the Reed-Solomon algorithm.
+            </summary>
+            <param name="message">The possibly broken message to repair.</param>
+            <param name="ecc">The available error correction codewords.</param>
+            <param name="eccType">The type of Galois field to use to decode message.</param>
+            <returns>Returns the repaired message, or null if it cannot be repaired.</returns>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.ReedSolomonAlgorithm.Decode(System.Byte[],System.Byte[])">
+            <summary>
+            Repairs a possibly broken message using the Reed-Solomon algorithm.
+            </summary>
+            <param name="message">The possibly broken message to repair.</param>
+            <param name="ecc">The available error correction codewords.</param>
+            <returns>Returns the repaired message, or null if it cannot be repaired.</returns>
+        </member>
+        <member name="T:TEST_lire_ecrire_image.ReedSolomonDecoder">
+            <summary> <p>Implements Reed-Solomon decoding, as the name implies.</p>
+            
+            <p>The algorithm will not be explained here, but the following references were helpful
+            in creating this implementation:</p>
+            
+            <ul>
+            <li>Bruce Maggs.
+            <a href="http://www.cs.cmu.edu/afs/cs.cmu.edu/project/pscico-guyb/realworld/www/rs_decode.ps">
+            "Decoding Reed-Solomon Codes"</a> (see discussion of Forney's Formula)</li>
+            <li>J.I. Hall. <a href="www.mth.msu.edu/~jhall/classes/codenotes/GRS.pdf">
+            "Chapter 5. Generalized Reed-Solomon Codes"</a>
+            (see discussion of Euclidean algorithm)</li>
+            </ul>
+            
+            <p>Much credit is due to William Rucklidge since portions of this code are an indirect
+            port of his C++ Reed-Solomon implementation.</p>
+            
+            </summary>
+            <author>Sean Owen</author>
+            <author>William Rucklidge</author>
+            <author>sanfordsquires</author>
+        </member>
+        <member name="M:TEST_lire_ecrire_image.ReedSolomonDecoder.Decode(System.Int32[],System.Int32)">
+            <summary>
+              <p>Decodes given set of received codewords, which include both data and error-correction
+            codewords. Really, this means it uses Reed-Solomon to detect and correct errors, in-place,
+            in the input.</p>
+            </summary>
+            <param name="received">data and error-correction codewords</param>
+            <param name="twoS">number of error-correction codewords available</param>
+            <returns>false: decoding fails</returns>
+        </member>
+        <member name="T:TEST_lire_ecrire_image.ReedSolomonEncoder">
+            <summary>
+            Implements Reed-Solomon encoding, as the name implies.
+            </summary>
+            <author>Sean Owen</author>
+            <author>William Rucklidge</author>
+        </member>
+    </members>
+</doc>
